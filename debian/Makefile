@@ -1,4 +1,5 @@
 # GITVERSION=$(shell git rev-parse FETCH_HEAD)
+GUIVERSION=$(shell cd ../../gui && git describe --tags $(git rev-list --tags --max-count=1) | sed 's/^v//')
 VERSION=$(shell git describe --tags $(git rev-list --tags --max-count=1) | sed 's/^v//')
 
 BASENAME=go-wit-gui
@@ -8,6 +9,7 @@ all: help deb
 help:
 	@echo
 	@echo "make deb     # attempt to build the .deb package using dpkg"
+	@echo "make rpm     # attempt to build a .rpm package"
 	@echo
 
 deb: clean extract DEBIAN build
@@ -35,6 +37,7 @@ DEBIAN:
 	mkdir -p DEBIAN
 	cp control DEBIAN/
 	echo Version: ${VERSION} >>DEBIAN/control
+	echo GuiVersion: ${GUIVERSION} >>DEBIAN/control
 
 	cp postinst DEBIAN
 
