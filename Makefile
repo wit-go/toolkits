@@ -1,4 +1,4 @@
-.PHONY: nocui gocui andlabs
+.PHONY: debian nocui gocui andlabs
 
 all:
 	# reset
@@ -45,7 +45,7 @@ update:
 	git pull
 	go get -v -t -u ./...
 
-deb:
+debian:
 	cd debian && make
 	dpkg-deb -c go-wit-gui*.deb
 	-wit mirrors
@@ -90,7 +90,7 @@ goget:
 
 clean:
 	rm -f *.so
-	# cd debian && make clean
+	cd debian && make clean
 
 plugins: plugins-gocui plugins-andlabs
 
@@ -110,8 +110,3 @@ log:
 
 submit-to-docs:
 	GOPROXY=https://proxy.golang.org GO111MODULE=on go get go.wit.com/gui@v1.0.0
-
-deb:
-	cd debian && make
-	dpkg-deb -c go-wit-gui*.deb
-	-wit mirrors
