@@ -1,6 +1,8 @@
 # GITVERSION=$(shell git rev-parse FETCH_HEAD)
 GUIVERSION=$(shell cd ../../gui && git describe --tags $(git rev-list --tags --max-count=1) | sed 's/^v//')
-VERSION=$(shell git describe --tags $(git rev-list --tags --max-count=1) | sed 's/^v//')
+TOOLKITVERSION=$(shell git describe --tags $(git rev-list --tags --max-count=1) | sed 's/^v//')
+
+VERSION=${TOOLKITVERSION}-gui-${GUIVERSION}
 
 BASENAME=go-wit-gui
 
@@ -21,9 +23,9 @@ clean:
 	rm -rf DEBIAN
 
 extract:
-	mkdir -p ../files/usr/lib/go-gui
-	cp  ../*.so ../files/usr/lib/go-gui/
-	cp  ../README.md ../files/usr/lib/go-gui/
+	mkdir -p ../files/usr/lib/go-gui/${GUIVERSION}/${TOOLKITVERSION}
+	cp  ../*.so ../files/usr/lib/go-gui/${GUIVERSION}/${TOOLKITVERSION}/
+	cp  ../README.md ../files/usr/lib/go-gui/${GUIVERSION}/${TOOLKITVERSION}/
 
 # makes the DEBIAN/ directory
 DEBIAN:
@@ -37,6 +39,7 @@ DEBIAN:
 	mkdir -p DEBIAN
 	cp control DEBIAN/
 	echo Version: ${VERSION} >>DEBIAN/control
+	echo ToolkitVersion: ${TOOLKITVERSION} >>DEBIAN/control
 	echo GuiVersion: ${GUIVERSION} >>DEBIAN/control
 
 	cp postinst DEBIAN
