@@ -4,7 +4,7 @@ TOOLKITVERSION=$(shell git describe --tags $(git rev-list --tags --max-count=1) 
 
 VERSION=${TOOLKITVERSION}-gui-${GUIVERSION}
 
-BASENAME=go-wit-gui
+BASENAME=go-gui-toolkits
 
 all: help deb
 
@@ -42,7 +42,11 @@ DEBIAN:
 	echo ToolkitVersion: ${TOOLKITVERSION} >>DEBIAN/control
 	echo GuiVersion: ${GUIVERSION} >>DEBIAN/control
 
+	chmod +x DEBIAN
+
 	cp postinst DEBIAN
+	echo cd /usr/lib/go-gui/ >>DEBIAN/postinst
+	echo ln -sf ${GUIVERSION}/${TOOLKITVERSION} latest >>DEBIAN/postinst
 
 build:
 	mv DEBIAN ../files/

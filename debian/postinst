@@ -1,1 +1,3 @@
 #!/bin/sh
+#
+# ln -s latest to /usr/lib/go-gui/latest

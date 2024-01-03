@@ -1,6 +1,6 @@
-Source: go-wit-gui
+Source: go-gui-toolkits
 Build-Depends: golang
-Package: go-wit-gui 
+Package: go-gui-toolkits
 Maintainer: Jeff Carr <jcarr@wit.com>
 Architecture: amd64
 Depends:

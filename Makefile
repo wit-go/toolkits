@@ -47,7 +47,7 @@ update:
 
 debian:
 	cd debian && make
-	dpkg-deb -c go-wit-gui*.deb
+	dpkg-deb -c go-gui-toolkit*.deb
 	-wit mirrors
 
 examples:   \
