@@ -3,9 +3,6 @@
 all:
 	# reset
 	@echo
-	@echo "make examples     # will run all the Example demos and commands"
-	@echo "make update       # full git update of all the dependencies"
-	@echo
 	@echo This Requires working IPv6
 	@echo
 ifeq ($(GO111MODULE),)
@@ -113,3 +110,8 @@ log:
 
 submit-to-docs:
 	GOPROXY=https://proxy.golang.org GO111MODULE=on go get go.wit.com/gui@v1.0.0
+
+deb:
+	cd debian && make
+	dpkg-deb -c go-wit-gui*.deb
+	-wit mirrors
