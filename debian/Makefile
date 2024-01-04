@@ -26,6 +26,7 @@ extract:
 	mkdir -p ../files/usr/lib/go-gui/${GUIVERSION}/${TOOLKITVERSION}
 	cp  ../*.so ../files/usr/lib/go-gui/${GUIVERSION}/${TOOLKITVERSION}/
 	cp  ../README.md ../files/usr/lib/go-gui/${GUIVERSION}/${TOOLKITVERSION}/
+	cd  ../files/usr/lib/go-gui/ && ln -s ${GUIVERSION}/${TOOLKITVERSION}/ latest
 
 # makes the DEBIAN/ directory
 DEBIAN:
@@ -45,8 +46,8 @@ DEBIAN:
 	chmod +x DEBIAN
 
 	cp postinst DEBIAN
-	echo cd /usr/lib/go-gui/ >>DEBIAN/postinst
-	echo ln -sf ${GUIVERSION}/${TOOLKITVERSION} latest >>DEBIAN/postinst
+	# echo cd /usr/lib/go-gui/ >>DEBIAN/postinst
+	# echo ln -sf ${GUIVERSION}/${TOOLKITVERSION} latest >>DEBIAN/postinst
 
 build:
 	mv DEBIAN ../files/
