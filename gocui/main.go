@@ -6,7 +6,7 @@ package main
 
 import (
 	"os"
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 )
 
 // sets defaults and establishes communication

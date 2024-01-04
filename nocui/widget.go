@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 )
 
 // this is specific to the nocui toolkit

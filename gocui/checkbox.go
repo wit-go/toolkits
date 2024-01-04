@@ -2,7 +2,7 @@ package main
 
 import (
 //	"github.com/awesome-gocui/gocui"
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 )
 
 func (n *node) setCheckbox(b bool) {

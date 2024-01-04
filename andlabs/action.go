@@ -3,7 +3,7 @@ package main
 import (
 	"strconv"
 	"github.com/andlabs/ui"
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 )
 
 func (n *node) show(b bool) {

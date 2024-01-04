@@ -4,7 +4,7 @@ package main
 
 import (
 	"strings"
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 )
 
 func (w *guiWidget) Width() int {

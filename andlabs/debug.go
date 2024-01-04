@@ -2,7 +2,7 @@ package main
 
 import (
 	"strconv"
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 )
 
 var defaultBehavior bool = true

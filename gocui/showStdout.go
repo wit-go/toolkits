@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/awesome-gocui/gocui"
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 )
 
 var outputW int = 180

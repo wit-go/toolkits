@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/awesome-gocui/gocui"
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 )
 
 // set isCurrent = false everywhere

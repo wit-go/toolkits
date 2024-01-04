@@ -4,7 +4,7 @@ import (
 	"github.com/andlabs/ui"
 	_ "github.com/andlabs/ui/winmanifest"
 
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 )
 
 func (p *node) newDropdown(n *node) {

@@ -2,7 +2,7 @@ package main
 
 import (
 	"sync"
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 
 	"github.com/andlabs/ui"
 	// the _ means we only need this for the init()

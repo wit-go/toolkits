@@ -7,7 +7,7 @@ import (
 	"strings"
 	"strconv"
 
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 )
 
 func simpleStdin() {

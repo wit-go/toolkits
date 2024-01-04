@@ -3,7 +3,7 @@ package main
 import (
 	// if you include more than just this import
 	// then your plugin might be doing something un-ideal (just a guess from 2023/02/27)
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 )
 
 func action(a *toolkit.Action) {

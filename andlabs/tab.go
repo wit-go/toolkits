@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 
 	"github.com/andlabs/ui"
 	_ "github.com/andlabs/ui/winmanifest"

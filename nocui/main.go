@@ -2,7 +2,7 @@ package main
 
 import (
 	"sync"
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 )
 
 var muAction sync.Mutex

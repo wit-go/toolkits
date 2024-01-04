@@ -7,7 +7,7 @@ package main
 import (
 	"os"
 	"github.com/awesome-gocui/gocui"
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 )
 
 func defaultKeybindings(g *gocui.Gui) error {

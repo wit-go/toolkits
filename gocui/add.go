@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go.wit.com/gui/gui/toolkit"
+	"go.wit.com/gui/toolkits"
 )
 
 var fakeStartWidth int = me.FakeW
