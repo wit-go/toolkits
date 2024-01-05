@@ -2,11 +2,11 @@ package main
 
 import (
 	"strings"
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 func (n *node) placeBox(startW int, startH int) {
-	if (n.WidgetType != toolkit.Box) {
+	if (n.WidgetType != widget.Box) {
 		return
 	}
 	n.showWidgetPlacement(logNow, "boxS()")
@@ -45,21 +45,21 @@ func (n *node) placeWidgets(startW int, startH int) {
 	}
 
 	switch n.WidgetType {
-	case toolkit.Window:
+	case widget.Window:
 		for _, child := range n.children {
 			child.placeWidgets(me.RawW, me.RawH)
 			return
 		}
-	case toolkit.Tab:
+	case widget.Tab:
 		for _, child := range n.children {
 			child.placeWidgets(me.RawW, me.RawH)
 			return
 		}
-	case toolkit.Grid:
+	case widget.Grid:
 		n.placeGrid(startW, startH)
-	case toolkit.Box:
+	case widget.Box:
 		n.placeBox(startW, startH)
-	case toolkit.Group:
+	case widget.Group:
 		// move the group to the parent's next location
 		n.gocuiSetWH(startW, startH)
 		n.showWidgetPlacement(logNow, "group()")
@@ -85,7 +85,7 @@ func (n *node) placeWidgets(startW int, startH int) {
 func (n *node) placeGrid(startW int, startH int) {
 	w := n.tk
 	n.showWidgetPlacement(logInfo, "grid0:")
-	if (n.WidgetType != toolkit.Grid) {
+	if (n.WidgetType != widget.Grid) {
 		return
 	}
 

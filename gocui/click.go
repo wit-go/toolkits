@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/awesome-gocui/gocui"
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 // set isCurrent = false everywhere
@@ -11,7 +11,7 @@ func unsetCurrent(n *node) {
 	w := n.tk
 	w.isCurrent = false
 
-	if n.WidgetType == toolkit.Tab {
+	if n.WidgetType == widget.Tab {
 		// n.tk.color = &colorTab
 		// n.setColor()
 	}
@@ -26,7 +26,7 @@ func unsetCurrent(n *node) {
 // to be in current display
 func (n *node) updateCurrent() {
 	log(true, "updateCurrent()", n.Name)
-	if n.WidgetType == toolkit.Tab {
+	if n.WidgetType == widget.Tab {
 		if n.IsCurrent() {
 			// n.tk.color = &colorActiveT
 			n.setColor(&colorActiveT)
@@ -39,13 +39,13 @@ func (n *node) updateCurrent() {
 		}
 		return
 	}
-	if n.WidgetType == toolkit.Window {
+	if n.WidgetType == widget.Window {
 		if n.IsCurrent() {
 			// setCurrentWindow(n)
 		}
 		return
 	}
-	if n.WidgetType == toolkit.Root {
+	if n.WidgetType == widget.Root {
 		return
 	}
 	n.parent.updateCurrent()
@@ -57,7 +57,7 @@ func setCurrentWindow(n *node) {
 		return
 	}
 	w := n.tk
-	if n.WidgetType != toolkit.Window {
+	if n.WidgetType != widget.Window {
 		return
 	}
 	unsetCurrent(me.rootNode)
@@ -76,7 +76,7 @@ func setCurrentWindow(n *node) {
 // shows the widgets in a tab
 func setCurrentTab(n *node) {
 	w := n.tk
-	if n.WidgetType != toolkit.Tab {
+	if n.WidgetType != widget.Tab {
 		return
 	}
 	unsetCurrent(me.rootNode)
@@ -88,14 +88,14 @@ func setCurrentTab(n *node) {
 
 func (n *node) doWidgetClick() {
 	switch n.WidgetType {
-	case toolkit.Root:
+	case widget.Root:
 		// THIS IS THE BEGINING OF THE LAYOUT
 		log(true, "doWidgetClick()", n.Name)
 		redoWindows(0,0)
-	case toolkit.Flag:
+	case widget.Flag:
 		log(true, "doWidgetClick() FLAG widget name =", n.Name)
 		log(true, "doWidgetClick() if this is the dropdown menu, handle it here?")
-	case toolkit.Window:
+	case widget.Window:
 		if (me.currentWindow == n) {
 			return
 		}
@@ -122,7 +122,7 @@ func (n *node) doWidgetClick() {
 		if ! n.hasTabs {
 		}
 		*/
-	case toolkit.Tab:
+	case widget.Tab:
 		if (n.IsCurrent()) {
 			return // do nothing if you reclick on the already selected tab
 		}
@@ -133,7 +133,7 @@ func (n *node) doWidgetClick() {
 			p.redoTabs(me.TabW, me.TabH)
 			unsetCurrent(p)
 			for _, child := range p.children {
-				if child.WidgetType == toolkit.Tab {
+				if child.WidgetType == widget.Tab {
 					child.setColor(&colorTab)
 					n.currentTab = false
 				}
@@ -144,17 +144,17 @@ func (n *node) doWidgetClick() {
 		setCurrentTab(n)
 		n.placeWidgets(me.RawW, me.RawH)
 		n.showWidgets()
-	case toolkit.Group:
+	case widget.Group:
 		// n.placeWidgets(p.tk.startH, newH)
 		n.toggleTree()
-	case toolkit.Checkbox:
+	case widget.Checkbox:
 		if (n.B) {
 			n.setCheckbox(false)
 		} else {
 			n.setCheckbox(true)
 		}
 		n.doUserEvent()
-	case toolkit.Grid:
+	case widget.Grid:
 		newR := n.realGocuiSize()
 
 		// w,h := n.logicalSize()
@@ -163,7 +163,7 @@ func (n *node) doWidgetClick() {
 
 		n.placeGrid(newR.w0, newR.h0)
 		n.showWidgets()
-	case toolkit.Box:
+	case widget.Box:
 		// w.showWidgetPlacement(logNow, "drawTree()")
 		if (n.horizontal) {
 			log(true, "BOX IS HORIZONTAL", n.Name)
@@ -172,9 +172,9 @@ func (n *node) doWidgetClick() {
 		}
 		// n.placeWidgets()
 		n.toggleTree()
-	case toolkit.Button:
+	case widget.Button:
 		n.doUserEvent()
-	case toolkit.Dropdown:
+	case widget.Dropdown:
 		log(true, "do the dropdown here")
 		if (me.ddview == nil) {
 			me.ddview = addDropdown()

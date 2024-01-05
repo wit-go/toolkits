@@ -4,7 +4,7 @@ package main
 
 import (
 	"strings"
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 func (w *guiWidget) Width() int {
@@ -50,13 +50,13 @@ func (n *node) gocuiSetWH(sizeW, sizeH int) {
 
 func redoWindows(nextW int, nextH int) {
 	for _, n := range me.rootNode.children {
-		if n.WidgetType != toolkit.Window {
+		if n.WidgetType != widget.Window {
 			continue
 		}
 		w := n.tk
 		var tabs bool
 		for _, child := range n.children {
-			if (child.WidgetType == toolkit.Tab) {
+			if (child.WidgetType == widget.Tab) {
 				tabs = true
 			}
 		}
@@ -86,7 +86,7 @@ func redoWindows(nextW int, nextH int) {
 
 func (p *node) redoTabs(nextW int, nextH int) {
 	for _, n := range p.children {
-		if n.WidgetType != toolkit.Tab {
+		if n.WidgetType != widget.Tab {
 			continue
 		}
 		w := n.tk

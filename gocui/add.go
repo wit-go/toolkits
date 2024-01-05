@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 var fakeStartWidth int = me.FakeW
@@ -29,41 +29,41 @@ func (n *node) addWidget() {
 	nw := n.tk
 	log(logInfo, "setStartWH() w.id =", n.WidgetId, "n.name", n.Name)
 	switch n.WidgetType {
-	case toolkit.Root:
+	case widget.Root:
 		log(logInfo, "setStartWH() rootNode w.id =", n.WidgetId, "w.name", n.Name)
 		nw.color = &colorRoot
 		n.setFake()
 		return
-	case toolkit.Flag:
+	case widget.Flag:
 		nw.color = &colorFlag
 		n.setFake()
 		return
-	case toolkit.Window:
+	case widget.Window:
 		nw.frame = false
 		nw.color = &colorWindow
 		// redoWindows(0,0)
 		return
-	case toolkit.Tab:
+	case widget.Tab:
 		nw.color = &colorTab
 		// redoWindows(0,0)
 		return
-	case toolkit.Button:
+	case widget.Button:
 		nw.color = &colorButton
-	case toolkit.Box:
+	case widget.Box:
 		nw.color = &colorBox
 		nw.isFake = true
 		n.setFake()
 		return
-	case toolkit.Grid:
+	case widget.Grid:
 		nw.color = &colorGrid
 		nw.isFake = true
 		n.setFake()
 		return
-	case toolkit.Group:
+	case widget.Group:
 		nw.color = &colorGroup
 		nw.frame = false
 		return
-	case toolkit.Label:
+	case widget.Label:
 		nw.color = &colorLabel
 		nw.frame = false
 		return

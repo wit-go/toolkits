@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/awesome-gocui/gocui"
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 func splitLines(s string) []string {
@@ -183,11 +183,11 @@ func (n *node) hideWidgets() {
 	w := n.tk
 	w.isCurrent = false
 	switch n.WidgetType {
-	case toolkit.Root:
-	case toolkit.Flag:
-	case toolkit.Window:
-	case toolkit.Box:
-	case toolkit.Grid:
+	case widget.Root:
+	case widget.Flag:
+	case widget.Window:
+	case widget.Box:
+	case widget.Grid:
 	default:
 		n.hideView()
 	}

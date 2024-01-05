@@ -3,10 +3,10 @@ package main
 import (
 	// if you include more than just this import
 	// then your plugin might be doing something un-ideal (just a guess from 2023/02/27)
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
-func action(a *toolkit.Action) {
+func action(a *widget.Action) {
 	log(logInfo, "action() START", a.WidgetId, a.ActionType, a.WidgetType, a.Name)
 	n := me.rootNode.findWidgetId(a.WidgetId)
 	var w *guiWidget
@@ -14,7 +14,7 @@ func action(a *toolkit.Action) {
 		w = n.tk
 	}
 	switch a.ActionType {
-	case toolkit.Add:
+	case widget.Add:
 		if (w == nil) {
 			n := addNode(a)
 			// w = n.tk
@@ -25,14 +25,14 @@ func action(a *toolkit.Action) {
 			log(logError, "action() Add ignored for already defined widget",
 				a.WidgetId, a.ActionType, a.WidgetType, a.Name)
 		}
-	case toolkit.Show:
+	case widget.Show:
 		if (a.B) {
 			n.showView()
 		} else {
 			n.hideWidgets()
 		}
-	case toolkit.Set:
-		if a.WidgetType == toolkit.Flag {
+	case widget.Set:
+		if a.WidgetType == widget.Flag {
 			log(logNow, "TODO: set flag here", a.ActionType, a.WidgetType, a.Name)
 			log(logNow, "TODO: n.WidgetType =", n.WidgetType, "n.Name =", a.Name)
 		} else {
@@ -42,23 +42,23 @@ func action(a *toolkit.Action) {
 				n.Set(a.A)
 			}
 		}
-	case toolkit.SetText:
+	case widget.SetText:
 		n.SetText(a.S)
-	case toolkit.AddText:
+	case widget.AddText:
 		n.AddText(a.S)
-	case toolkit.Move:
+	case widget.Move:
 		log(logNow, "attempt to move() =", a.ActionType, a.WidgetType, a.Name)
-	case toolkit.CloseToolkit:
+	case widget.CloseToolkit:
 		log(logNow, "attempting to close the plugin and release stdout and stderr")
 		standardExit()
-	case toolkit.Enable:
+	case widget.Enable:
 		if n.Visible() {
 			// widget was already shown
 		} else {
 			log(logInfo, "Setting Visable to true", a.Name)
 			n.SetVisible(true)
 		}
-	case toolkit.Disable:
+	case widget.Disable:
 		if n.Visible() {
 			log(logInfo, "Setting Visable to false", a.Name)
 			n.SetVisible(false)

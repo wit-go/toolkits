@@ -2,12 +2,12 @@ package main
 
 import (
 //	"github.com/awesome-gocui/gocui"
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 func (n *node) setCheckbox(b bool) {
 	w := n.tk
-	if (n.WidgetType != toolkit.Checkbox) {
+	if (n.WidgetType != widget.Checkbox) {
 		return
 	}
 	if (b) {

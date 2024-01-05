@@ -2,7 +2,7 @@ package main
 
 import (
 	"strconv"
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 func initWidget(n *node) *guiWidget {
@@ -15,14 +15,14 @@ func initWidget(n *node) *guiWidget {
 	// set the name used by gocui to the id
 	w.cuiName = strconv.Itoa(n.WidgetId)
 
-	if n.WidgetType == toolkit.Root {
+	if n.WidgetType == widget.Root {
 		log(logInfo, "setupWidget() FOUND ROOT w.id =", n.WidgetId)
 		n.WidgetId = 0
 		me.rootNode = n
 		return w
 	}
 
-	if (n.WidgetType == toolkit.Box) {
+	if (n.WidgetType == widget.Box) {
 		if (n.B) {
 			n.horizontal = true
 		} else {
@@ -30,7 +30,7 @@ func initWidget(n *node) *guiWidget {
 		}
 	}
 
-	if (n.WidgetType == toolkit.Grid) {
+	if (n.WidgetType == widget.Grid) {
 		w.widths = make(map[int]int) // how tall each row in the grid is
 		w.heights = make(map[int]int) // how wide each column in the grid is
 	}
@@ -39,9 +39,9 @@ func initWidget(n *node) *guiWidget {
 }
 
 func setupCtrlDownWidget() {
-	a := new(toolkit.Action)
+	a := new(widget.Action)
 	a.Name = "ctrlDown"
-	a.WidgetType = toolkit.Dialog
+	a.WidgetType = widget.Dialog
 	a.WidgetId = -1
 	a.ParentId = 0
 	n := addNode(a)
@@ -81,13 +81,13 @@ func (n *node) findWidgetName(name string) *node {
 
 func (n *node) IsCurrent() bool {
 	w := n.tk
-	if (n.WidgetType == toolkit.Tab) {
+	if (n.WidgetType == widget.Tab) {
 		return w.isCurrent
 	}
-	if (n.WidgetType == toolkit.Window) {
+	if (n.WidgetType == widget.Window) {
 		return w.isCurrent
 	}
-	if (n.WidgetType == toolkit.Root) {
+	if (n.WidgetType == widget.Root) {
 		return false
 	}
 	return n.parent.IsCurrent()
@@ -121,7 +121,7 @@ func (n *node) SetVisible(b bool) {
 
 func addDropdown() *node {
 	n := new(node)
-	n.WidgetType = toolkit.Flag
+	n.WidgetType = widget.Flag
 	n.WidgetId = -2
 	n.ParentId = 0
 

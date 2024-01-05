@@ -6,7 +6,7 @@ package main
 
 import (
 	"os"
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 // sets defaults and establishes communication
@@ -17,7 +17,7 @@ func init() {
 	// init the config struct default values
 	Set(&me, "default")
 
-	pluginChan = make(chan toolkit.Action)
+	pluginChan = make(chan widget.Action)
 
 	log(logNow, "Init() start pluginChan")
 	go catchActionChannel()
@@ -71,8 +71,8 @@ func standardExit() {
 }
 func sendBackQuit() {
 	// send 'Quit' back to the program (?)
-	var a toolkit.Action
-	a.ActionType = toolkit.UserQuit
+	var a widget.Action
+	a.ActionType = widget.UserQuit
 	callback <- a
 }
 

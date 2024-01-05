@@ -7,7 +7,7 @@ package main
 import (
 	"os"
 	"github.com/awesome-gocui/gocui"
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 func defaultKeybindings(g *gocui.Gui) error {
@@ -141,9 +141,9 @@ func addDebugKeys(g *gocui.Gui) {
 	g.SetKeybinding("", gocui.KeyCtrlD, gocui.ModNone,
 		func(g *gocui.Gui, v *gocui.View) error {
 			if (showDebug) {
-				var a toolkit.Action
+				var a widget.Action
 				a.B = true
-				a.ActionType = toolkit.EnableDebug
+				a.ActionType = widget.EnableDebug
 				callback <- a
 				logInfo = true
 				logVerbose = true

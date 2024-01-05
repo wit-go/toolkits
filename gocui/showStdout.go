@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/awesome-gocui/gocui"
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 var outputW int = 180
@@ -47,10 +47,10 @@ func makeOutputWidget(g *gocui.Gui, stringFromMouseClick string) *gocui.View {
 	}
 
 	if (me.logStdout == nil) {
-		a := new(toolkit.Action)
+		a := new(widget.Action)
 		a.Name = "stdout"
 		a.Text = "stdout"
-		a.WidgetType = toolkit.Stdout
+		a.WidgetType = widget.Stdout
 		a.WidgetId = -3
 		a.ParentId = 0
 		n := addNode(a)

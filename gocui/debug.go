@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 func (n *node) dumpTree(draw bool) {
@@ -41,7 +41,7 @@ func (n *node) showWidgetPlacement(b bool, s string) {
 		s1 += fmt.Sprintf("                          ")
 	}
 	if (n.parent != nil) {
-		if (n.parent.WidgetType == toolkit.Grid) {
+		if (n.parent.WidgetType == widget.Grid) {
 			s1 += fmt.Sprintf("At(%2d,%2d) ", n.AtW, n.AtH)
 		}
 	}
