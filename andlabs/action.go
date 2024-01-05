@@ -3,7 +3,7 @@ package main
 import (
 	"strconv"
 	"github.com/andlabs/ui"
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 func (n *node) show(b bool) {
@@ -37,7 +37,7 @@ func (n *node) enable(b bool) {
 	}
 }
 
-func (n *node) pad(at toolkit.ActionType) {
+func (n *node) pad(at widget.ActionType) {
 	log(logInfo, "pad() on WidgetId =", n.WidgetId)
 
 	t := n.tk
@@ -47,62 +47,62 @@ func (n *node) pad(at toolkit.ActionType) {
 	}
 
 	switch n.WidgetType {
-	case toolkit.Group:
+	case widget.Group:
 		switch at {
-		case toolkit.Margin:
+		case widget.Margin:
 			t.uiGroup.SetMargined(true)
-		case toolkit.Unmargin:
+		case widget.Unmargin:
 			t.uiGroup.SetMargined(false)
-		case toolkit.Pad:
+		case widget.Pad:
 			t.uiGroup.SetMargined(true)
-		case toolkit.Unpad:
+		case widget.Unpad:
 			t.uiGroup.SetMargined(false)
 		}
-	case toolkit.Tab:
+	case widget.Tab:
 		switch at {
-		case toolkit.Margin:
+		case widget.Margin:
 			tabSetMargined(t.uiTab, true)
-		case toolkit.Unmargin:
+		case widget.Unmargin:
 			tabSetMargined(t.uiTab, false)
-		case toolkit.Pad:
+		case widget.Pad:
 			tabSetMargined(t.uiTab, true)
-		case toolkit.Unpad:
+		case widget.Unpad:
 			tabSetMargined(t.uiTab, false)
 		}
-	case toolkit.Window:
+	case widget.Window:
 		switch at {
-		case toolkit.Margin:
+		case widget.Margin:
 			t.uiWindow.SetMargined(true)
-		case toolkit.Unmargin:
+		case widget.Unmargin:
 			t.uiWindow.SetMargined(false)
-		case toolkit.Pad:
+		case widget.Pad:
 			t.uiWindow.SetBorderless(false)
-		case toolkit.Unpad:
+		case widget.Unpad:
 			t.uiWindow.SetBorderless(true)
 		}
-	case toolkit.Grid:
+	case widget.Grid:
 		switch at {
-		case toolkit.Margin:
+		case widget.Margin:
 			t.uiGrid.SetPadded(true)
-		case toolkit.Unmargin:
+		case widget.Unmargin:
 			t.uiGrid.SetPadded(false)
-		case toolkit.Pad:
+		case widget.Pad:
 			t.uiGrid.SetPadded(true)
-		case toolkit.Unpad:
+		case widget.Unpad:
 			t.uiGrid.SetPadded(false)
 		}
-	case toolkit.Box:
+	case widget.Box:
 		switch at {
-		case toolkit.Margin:
+		case widget.Margin:
 			t.uiBox.SetPadded(true)
-		case toolkit.Unmargin:
+		case widget.Unmargin:
 			t.uiBox.SetPadded(false)
-		case toolkit.Pad:
+		case widget.Pad:
 			t.uiBox.SetPadded(true)
-		case toolkit.Unpad:
+		case widget.Unpad:
 			t.uiBox.SetPadded(false)
 		}
-	case toolkit.Textbox:
+	case widget.Textbox:
 		log(debugError, "TODO: implement ActionType =", at)
 	default:
 		log(debugError, "TODO: implement pad() for", at)
@@ -113,14 +113,14 @@ func (n *node) move(newParent *node) {
 	p := n.parent
 
 	switch p.WidgetType {
-	case toolkit.Group:
-	case toolkit.Tab:
+	case widget.Group:
+	case widget.Tab:
 		// tabSetMargined(tParent.uiTab, true)
-	case toolkit.Window:
+	case widget.Window:
 		// t.uiWindow.SetBorderless(false)
-	case toolkit.Grid:
+	case widget.Grid:
 		// t.uiGrid.SetPadded(true)
-	case toolkit.Box:
+	case widget.Box:
 		log(logInfo, "TODO: move() where =", p.ParentId)
 		log(logInfo, "TODO: move() for widget =", n.WidgetId)
 
@@ -146,15 +146,15 @@ func (n *node) Delete() {
 	log(debugNow, "uiDelete()", n.WidgetId, "to", p.WidgetId)
 
 	switch p.WidgetType {
-	case toolkit.Group:
+	case widget.Group:
 		// tParent.uiGroup.SetMargined(true)
-	case toolkit.Tab:
+	case widget.Tab:
 		// tabSetMargined(tParent.uiTab, true)
-	case toolkit.Window:
+	case widget.Window:
 		// t.uiWindow.SetBorderless(false)
-	case toolkit.Grid:
+	case widget.Grid:
 		// t.uiGrid.SetPadded(true)
-	case toolkit.Box:
+	case widget.Box:
 		log(debugNow, "tWidget.boxC =", p.Name)
 		log(debugNow, "is there a tParent parent? =", p.parent)
 		if (p.tk.boxC < 1) {
@@ -174,11 +174,11 @@ func (n *node) Delete() {
 	}
 }
 
-func rawAction(a *toolkit.Action) {
+func rawAction(a *widget.Action) {
 	log(logInfo, "rawAction() START a.ActionType =", a.ActionType)
 	log(logInfo, "rawAction() START a.S =", a.S)
 
-	if (a.ActionType == toolkit.InitToolkit) {
+	if (a.ActionType == widget.InitToolkit) {
 		// TODO: make sure to only do this once
 		// go uiMain.Do(func() {
 		// 	ui.Main(demoUI)
@@ -190,14 +190,14 @@ func rawAction(a *toolkit.Action) {
 
 	log(logInfo, "rawAction() START a.WidgetId =", a.WidgetId, "a.ParentId =", a.ParentId)
 	switch a.WidgetType {
-	case toolkit.Flag:
+	case widget.Flag:
 		flag(a)
 		return
 	}
 
 	n := me.rootNode.findWidgetId(a.WidgetId)
 
-	if (a.ActionType == toolkit.Add) {
+	if (a.ActionType == widget.Add) {
 		ui.QueueMain(func() {
 			add(a)
 		})
@@ -206,7 +206,7 @@ func rawAction(a *toolkit.Action) {
 		return
 	}
 
-	if (a.ActionType == toolkit.Dump) {
+	if (a.ActionType == widget.Dump) {
 		log(debugNow, "rawAction() Dump =", a.ActionType, a.WidgetType, n.Name)
 		me.rootNode.listChildren(true)
 		return
@@ -223,38 +223,38 @@ func rawAction(a *toolkit.Action) {
 	}
 
 	switch a.ActionType {
-	case toolkit.Show:
+	case widget.Show:
 		n.show(true)
-	case toolkit.Hide:
+	case widget.Hide:
 		n.show(false)
-	case toolkit.Enable:
+	case widget.Enable:
 		n.enable(true)
-	case toolkit.Disable:
+	case widget.Disable:
 		n.enable(false)
-	case toolkit.Get:
+	case widget.Get:
 		n.setText(a)
-	case toolkit.GetText:
+	case widget.GetText:
 		switch a.WidgetType {
-		case toolkit.Textbox:
+		case widget.Textbox:
 			a.S = n.S
 		}
-	case toolkit.Set:
+	case widget.Set:
 		n.setText(a)
-	case toolkit.SetText:
+	case widget.SetText:
 		n.setText(a)
-	case toolkit.AddText:
+	case widget.AddText:
 		n.setText(a)
-	case toolkit.Margin:
-		n.pad(toolkit.Unmargin)
-	case toolkit.Unmargin:
-		n.pad(toolkit.Margin)
-	case toolkit.Pad:
-		n.pad(toolkit.Pad)
-	case toolkit.Unpad:
-		n.pad(toolkit.Unpad)
-	case toolkit.Delete:
+	case widget.Margin:
+		n.pad(widget.Unmargin)
+	case widget.Unmargin:
+		n.pad(widget.Margin)
+	case widget.Pad:
+		n.pad(widget.Pad)
+	case widget.Unpad:
+		n.pad(widget.Unpad)
+	case widget.Delete:
 		n.Delete()
-	case toolkit.Move:
+	case widget.Move:
 		log(debugNow, "rawAction() attempt to move() =", a.ActionType, a.WidgetType)
 		newParent := me.rootNode.findWidgetId(a.ParentId)
 		n.move(newParent)

@@ -4,10 +4,10 @@ import (
 	"github.com/andlabs/ui"
 	_ "github.com/andlabs/ui/winmanifest"
 
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
-func actionDump(b bool, a *toolkit.Action) {
+func actionDump(b bool, a *widget.Action) {
 	log(b, "actionDump() Widget.Type =", a.ActionType)
 	log(b, "actionDump() Widget.S =", a.S)
 	log(b, "actionDump() Widget.I =", a.I)
@@ -15,8 +15,8 @@ func actionDump(b bool, a *toolkit.Action) {
 	log(b, "actionDump() ParentId =", a.ParentId)
 }
 
-func add(a *toolkit.Action) {
-	if (a.WidgetType == toolkit.Root) {
+func add(a *widget.Action) {
+	if (a.WidgetType == widget.Root) {
 		me.rootNode = addNode(a)
 		return
 	}
@@ -24,46 +24,46 @@ func add(a *toolkit.Action) {
 
 	p := n.parent
 	switch n.WidgetType {
-	case toolkit.Window:
+	case widget.Window:
 		newWindow(n)
 		return
-	case toolkit.Tab:
+	case widget.Tab:
 		p.newTab(n)
 		return
-	case toolkit.Label:
+	case widget.Label:
 		p.newLabel(n)
 		return
-	case toolkit.Button:
+	case widget.Button:
 		p.newButton(n)
 		return
-	case toolkit.Grid:
+	case widget.Grid:
 		p.newGrid(n)
 		return
-	case toolkit.Checkbox:
+	case widget.Checkbox:
 		p.newCheckbox(n)
 		return
-	case toolkit.Spinner:
+	case widget.Spinner:
 		p.newSpinner(n)
 		return
-	case toolkit.Slider:
+	case widget.Slider:
 		p.newSlider(n)
 		return
-	case toolkit.Dropdown:
+	case widget.Dropdown:
 		p.newDropdown(n)
 		return
-	case toolkit.Combobox:
+	case widget.Combobox:
 		p.newCombobox(n)
 		return
-	case toolkit.Textbox:
+	case widget.Textbox:
 		p.newTextbox(n)
 		return
-	case toolkit.Group:
+	case widget.Group:
 		p.newGroup(n)
 		return
-	case toolkit.Box:
+	case widget.Box:
 		p.newBox(n)
 		return
-	case toolkit.Image:
+	case widget.Image:
 		p.newImage(n)
 		return
 	default:
@@ -106,7 +106,7 @@ func (p *node) place(n *node) bool {
 
 	log(logInfo, "place() switch", p.WidgetType)
 	switch p.WidgetType {
-	case toolkit.Grid:
+	case widget.Grid:
 		log(logInfo, "place() Grid try at Parent X,Y =", n.X, n.Y)
 		n.tk.gridX = n.AtW - 1
 		n.tk.gridY = n.AtH - 1
@@ -116,7 +116,7 @@ func (p *node) place(n *node) bool {
 			n.tk.gridX, n.tk.gridY, 1, 1,
 			false, ui.AlignFill, false, ui.AlignFill)
 		return true
-	case toolkit.Group:
+	case widget.Group:
 		if (p.tk.uiBox == nil) {
 			p.tk.uiGroup.SetChild(n.tk.uiControl)
 			log(logInfo, "place() hack Group to use this as the box?", n.Name, n.WidgetType)
@@ -125,7 +125,7 @@ func (p *node) place(n *node) bool {
 			p.tk.uiBox.Append(n.tk.uiControl, stretchy)
 		}
 		return true
-	case toolkit.Tab:
+	case widget.Tab:
 		if (p.tk.uiTab == nil) {
 			log(logError, "p.tk.uiTab == nil for n.WidgetId =", n.WidgetId, "p.tk =", p.tk)
 			panic("p.tk.uiTab == nil")
@@ -141,13 +141,13 @@ func (p *node) place(n *node) bool {
 		p.tk.uiTab.Append(n.Text, n.tk.uiControl)
 		p.tk.boxC += 1
 		return true
-	case toolkit.Box:
+	case widget.Box:
 		log(logInfo, "place() uiBox =", p.tk.uiBox)
 		log(logInfo, "place() uiControl =", n.tk.uiControl)
 		p.tk.uiBox.Append(n.tk.uiControl, stretchy)
 		p.tk.boxC += 1
 		return true
-	case toolkit.Window:
+	case widget.Window:
 		p.tk.uiWindow.SetChild(n.tk.uiControl)
 		return true
 	default:

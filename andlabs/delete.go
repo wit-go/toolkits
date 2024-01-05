@@ -2,7 +2,7 @@ package main
 
 // if you include more than just this import
 // then your plugin might be doing something un-ideal (just a guess from 2023/02/27)
-import "go.wit.com/gui/toolkits"
+import "go.wit.com/gui/widget"
 
 // delete the child widget from the parent
 // p = parent, c = child
@@ -21,7 +21,7 @@ func (n *node) destroy() {
 	}
 
 	switch n.WidgetType {
-	case toolkit.Button:
+	case widget.Button:
 		log(true, "Should delete Button here:", n.Name)
 		log(true, "Parent:")
 		pt.Dump(true)
@@ -39,7 +39,7 @@ func (n *node) destroy() {
 			ct.uiButton.Destroy()
 		}
 
-	case toolkit.Window:
+	case widget.Window:
 		log(true, "Should delete Window here:", n.Name)
 	default:
 		log(true, "Fuckit, let's destroy a button")

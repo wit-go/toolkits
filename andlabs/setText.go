@@ -1,10 +1,10 @@
 package main
 
 import (
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
-func (n *node) setText(a *toolkit.Action) {
+func (n *node) setText(a *widget.Action) {
 	log(debugChange, "setText() START with a.S =", a.S)
 	t := n.tk
 	if (t == nil) {
@@ -15,33 +15,33 @@ func (n *node) setText(a *toolkit.Action) {
 	log(debugChange, "setText() Attempt on", n.WidgetType, "with", a.S)
 
 	switch n.WidgetType {
-	case toolkit.Window:
+	case widget.Window:
 		t.uiWindow.SetTitle(a.S)
-	case toolkit.Tab:
-	case toolkit.Group:
+	case widget.Tab:
+	case widget.Group:
 		t.uiGroup.SetTitle(a.S)
-	case toolkit.Checkbox:
+	case widget.Checkbox:
 		switch a.ActionType {
-		case toolkit.SetText:
+		case widget.SetText:
 			t.uiCheckbox.SetText(a.S)
-		case toolkit.Get:
+		case widget.Get:
 			n.B = t.uiCheckbox.Checked()
-		case toolkit.Set:
+		case widget.Set:
 			// TODO: commented out while working on chan
 			t.uiCheckbox.SetChecked(a.B)
 		default:
 			log(debugError, "setText() unknown", a.ActionType, "on checkbox", n.Name)
 		}
-	case toolkit.Textbox:
+	case widget.Textbox:
 		switch a.ActionType {
-		case toolkit.Set:
+		case widget.Set:
 			if (t.uiEntry != nil) {
 				t.uiEntry.SetText(a.S)
 			}
 			if (t.uiMultilineEntry != nil) {
 				t.uiMultilineEntry.SetText(a.S)
 			}
-		case toolkit.SetText:
+		case widget.SetText:
 			if (t.uiEntry != nil) {
 				t.uiEntry.SetText(a.S)
 			}
@@ -51,33 +51,33 @@ func (n *node) setText(a *toolkit.Action) {
 		default:
 			log(debugError, "setText() unknown", a.ActionType, "on checkbox", n.Name)
 		}
-	case toolkit.Label:
+	case widget.Label:
 		t.uiLabel.SetText(a.S)
-	case toolkit.Button:
+	case widget.Button:
 		t.uiButton.SetText(a.S)
-	case toolkit.Slider:
+	case widget.Slider:
 		switch a.ActionType {
-		case toolkit.Get:
+		case widget.Get:
 			n.I = t.uiSlider.Value()
-		case toolkit.Set:
+		case widget.Set:
 			t.uiSlider.SetValue(a.I)
 		default:
 			log(debugError, "setText() unknown", a.ActionType, "on checkbox", n.Name)
 		}
-	case toolkit.Spinner:
+	case widget.Spinner:
 		switch a.ActionType {
-		case toolkit.Get:
+		case widget.Get:
 			n.I = t.uiSpinbox.Value()
-		case toolkit.Set:
+		case widget.Set:
 			t.uiSpinbox.SetValue(a.I)
 		default:
 			log(debugError, "setText() unknown", a.ActionType, "on checkbox", n.Name)
 		}
-	case toolkit.Dropdown:
+	case widget.Dropdown:
 		switch a.ActionType {
-		case toolkit.AddText:
+		case widget.AddText:
 			n.AddDropdownName(a.S)
-		case toolkit.Set:
+		case widget.Set:
 			var orig int
 			var i int = -1
 			var s string
@@ -101,21 +101,21 @@ func (n *node) setText(a *toolkit.Action) {
 			if (orig == -1) {
 				t.uiCombobox.SetSelected(i)
 			}
-		case toolkit.Get:
+		case widget.Get:
 			// t.S = t.s
-		case toolkit.GetText:
+		case widget.GetText:
 			// t.S = t.s
 		default:
 			log(debugError, "setText() unknown", a.ActionType, "on checkbox", n.Name)
 		}
-	case toolkit.Combobox:
+	case widget.Combobox:
 		switch a.ActionType {
-		case toolkit.AddText:
+		case widget.AddText:
 			t.AddComboboxName(a.S)
-		case toolkit.Set:
+		case widget.Set:
 			t.uiEditableCombobox.SetText(a.S)
 			n.S = a.S
-		case toolkit.SetText:
+		case widget.SetText:
 			t.uiEditableCombobox.SetText(a.S)
 			n.S = a.S
 		default:

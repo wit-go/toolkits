@@ -4,7 +4,7 @@ import (
 	"github.com/andlabs/ui"
 	_ "github.com/andlabs/ui/winmanifest"
 
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 func (p *node) newDropdown(n *node) {
@@ -65,7 +65,7 @@ func (n *node) AddDropdownName(s string) {
 	t.addDropdownName(s)
 }
 
-func (n *node) SetDropdownName(a *toolkit.Action, s string) {
+func (n *node) SetDropdownName(a *widget.Action, s string) {
 	log(logInfo, "SetDropdown()", n.WidgetId, ",", s)
 
 	t := n.tk

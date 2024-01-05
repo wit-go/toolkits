@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 
 	"github.com/andlabs/ui"
 	_ "github.com/andlabs/ui/winmanifest"
@@ -25,7 +25,7 @@ func (p *node) newTab(n *node) {
 	if (p == nil) {
 		log(debugError, "newTab() p == nil. how the fuck does this happen?", n.WidgetId, n.ParentId)
 	}
-	if (p.WidgetType != toolkit.Window) {
+	if (p.WidgetType != widget.Window) {
 		log(debugError, "newTab() uiWindow == nil. I can't add a toolbar without window", n.WidgetId, n.ParentId)
 		return
 	}
@@ -41,7 +41,7 @@ func (p *node) newTab(n *node) {
 	} else {
 		// this means you have to append a tab
 		log(debugToolkit, "newTab() GOOD. This should be an additional tab:", n.WidgetId, n.ParentId)
-		if (n.WidgetType == toolkit.Tab) {
+		if (n.WidgetType == widget.Tab) {
 			// andlabs doesn't have multiple tab widgets so make a fake one?
 			// this makes a guiWidget internal structure with the parent values
 			newt = new(guiWidget)

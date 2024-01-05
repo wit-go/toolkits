@@ -2,7 +2,7 @@ package main
 
 import (
 	"strconv"
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 var defaultBehavior bool = true
@@ -92,7 +92,7 @@ func GetDebugToolkit () bool {
 }
 */
 
-func flag(a *toolkit.Action) {
+func flag(a *widget.Action) {
 	// should set the checkbox to this value
 	switch a.S {
 	case "Quiet":

@@ -2,7 +2,7 @@ package main
 
 import (
 	"sync"
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 
 	"github.com/andlabs/ui"
 	// the _ means we only need this for the init()
@@ -49,7 +49,7 @@ func init() {
 	})
 
 	// andlabs = make(map[int]*andlabsT)
-	pluginChan = make(chan toolkit.Action, 1)
+	pluginChan = make(chan widget.Action, 1)
 
 	log(logNow, "Init() start channel reciever")
 	go catchActionChannel()
