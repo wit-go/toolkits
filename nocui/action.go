@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 func (n *node) show(b bool) {
@@ -10,24 +10,24 @@ func (n *node) show(b bool) {
 func (n *node) enable(b bool) {
 }
 
-func (n *node) pad(at toolkit.ActionType) {
+func (n *node) pad(at widget.ActionType) {
 	switch n.WidgetType {
-	case toolkit.Group:
+	case widget.Group:
 		switch at {
-		case toolkit.Margin:
+		case widget.Margin:
 			// SetMargined(true)
-		case toolkit.Unmargin:
+		case widget.Unmargin:
 			// SetMargined(false)
-		case toolkit.Pad:
+		case widget.Pad:
 			// SetMargined(true)
-		case toolkit.Unpad:
+		case widget.Unpad:
 			// SetMargined(false)
 		}
-	case toolkit.Tab:
-	case toolkit.Window:
-	case toolkit.Grid:
-	case toolkit.Box:
-	case toolkit.Textbox:
+	case widget.Tab:
+	case widget.Window:
+	case widget.Grid:
+	case widget.Box:
+	case widget.Textbox:
 		log(logError, "TODO: implement ActionType =", at)
 	default:
 		log(logError, "TODO: implement pad() for", at)
@@ -38,14 +38,14 @@ func (n *node) move(newParent *node) {
 	p := n.parent
 
 	switch p.WidgetType {
-	case toolkit.Group:
-	case toolkit.Tab:
+	case widget.Group:
+	case widget.Tab:
 		// tabSetMargined(tParent.uiTab, true)
-	case toolkit.Window:
+	case widget.Window:
 		// t.uiWindow.SetBorderless(false)
-	case toolkit.Grid:
+	case widget.Grid:
 		// t.uiGrid.SetPadded(true)
-	case toolkit.Box:
+	case widget.Box:
 		log(logInfo, "TODO: move() where =", p.ParentId)
 		log(logInfo, "TODO: move() for widget =", n.WidgetId)
 	default:
@@ -60,15 +60,15 @@ func (n *node) Delete() {
 	log(logNow, "uiDelete()", n.WidgetId, "to", p.WidgetId)
 
 	switch p.WidgetType {
-	case toolkit.Group:
+	case widget.Group:
 		// tParent.uiGroup.SetMargined(true)
-	case toolkit.Tab:
+	case widget.Tab:
 		// tabSetMargined(tParent.uiTab, true)
-	case toolkit.Window:
+	case widget.Window:
 		// t.uiWindow.SetBorderless(false)
-	case toolkit.Grid:
+	case widget.Grid:
 		// t.uiGrid.SetPadded(true)
-	case toolkit.Box:
+	case widget.Box:
 		log(logNow, "tWidget.boxC =", p.Name)
 		log(logNow, "is there a tParent parent? =", p.parent)
 		// this didn't work:
@@ -81,11 +81,11 @@ func (n *node) Delete() {
 	}
 }
 
-func doAction(a *toolkit.Action) {
+func doAction(a *widget.Action) {
 	log(logNow, "doAction() START a.ActionType =", a.ActionType)
 	log(logNow, "doAction() START a.S =", a.S)
 
-	if (a.ActionType == toolkit.InitToolkit) {
+	if (a.ActionType == widget.InitToolkit) {
 		// TODO: make sure to only do this once
 		// go uiMain.Do(func() {
 		// 	ui.Main(demoUI)
@@ -97,11 +97,11 @@ func doAction(a *toolkit.Action) {
 
 	log(logNow, "doAction() START a.WidgetId =", a.WidgetId, "a.ParentId =", a.ParentId)
 	switch a.WidgetType {
-	case toolkit.Root:
+	case widget.Root:
 		me.rootNode = addNode(a)
 		log(logNow, "doAction() found rootNode")
 		return
-	case toolkit.Flag:
+	case widget.Flag:
 		// flag(&a)
 		return
 	}
@@ -109,40 +109,40 @@ func doAction(a *toolkit.Action) {
 	n := me.rootNode.findWidgetId(a.WidgetId)
 
 	switch a.ActionType {
-	case toolkit.Add:
+	case widget.Add:
 		addNode(a)
-	case toolkit.Show:
+	case widget.Show:
 		n.show(true)
-	case toolkit.Hide:
+	case widget.Hide:
 		n.show(false)
-	case toolkit.Enable:
+	case widget.Enable:
 		n.enable(true)
-	case toolkit.Disable:
+	case widget.Disable:
 		n.enable(false)
-	case toolkit.Get:
+	case widget.Get:
 		// n.setText(a.S)
-	case toolkit.GetText:
+	case widget.GetText:
 		switch a.WidgetType {
-		case toolkit.Textbox:
+		case widget.Textbox:
 			a.S = n.S
 		}
-	case toolkit.Set:
+	case widget.Set:
 		// n.setText(a.S)
-	case toolkit.SetText:
+	case widget.SetText:
 		// n.setText(a.S)
-	case toolkit.AddText:
+	case widget.AddText:
 		// n.setText(a.S)
-	case toolkit.Margin:
-		n.pad(toolkit.Unmargin)
-	case toolkit.Unmargin:
-		n.pad(toolkit.Margin)
-	case toolkit.Pad:
-		n.pad(toolkit.Pad)
-	case toolkit.Unpad:
-		n.pad(toolkit.Unpad)
-	case toolkit.Delete:
+	case widget.Margin:
+		n.pad(widget.Unmargin)
+	case widget.Unmargin:
+		n.pad(widget.Margin)
+	case widget.Pad:
+		n.pad(widget.Pad)
+	case widget.Unpad:
+		n.pad(widget.Unpad)
+	case widget.Delete:
 		n.Delete()
-	case toolkit.Move:
+	case widget.Move:
 		log(logNow, "doAction() attempt to move() =", a.ActionType, a.WidgetType)
 		newParent := me.rootNode.findWidgetId(a.ParentId)
 		n.move(newParent)

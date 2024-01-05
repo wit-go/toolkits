@@ -2,7 +2,7 @@ package main
 
 import (
 	"sync"
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 var muAction sync.Mutex
@@ -31,11 +31,11 @@ func catchActionChannel() {
 // Linux, MacOS and Windows work (they all work differently. suprise. surprise.)
 //
 // this sets the channel to send user events back from the plugin
-func Callback(guiCallback chan toolkit.Action) {
+func Callback(guiCallback chan widget.Action) {
 	callback = guiCallback
 }
 
-func PluginChannel() chan toolkit.Action {
+func PluginChannel() chan widget.Action {
 	return pluginChan
 }
 */
@@ -46,7 +46,7 @@ func init() {
 	log(logInfo, "Init()")
 
 	// andlabs = make(map[int]*andlabsT)
-	pluginChan = make(chan toolkit.Action, 1)
+	pluginChan = make(chan widget.Action, 1)
 
 	log(logNow, "Init() start channel reciever")
 	go catchActionChannel()

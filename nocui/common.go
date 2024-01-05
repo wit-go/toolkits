@@ -12,22 +12,22 @@ package main
 */
 
 import (
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 // this is the channel we send user events like
 // mouse clicks or keyboard events back to the program
-var callback chan toolkit.Action
+var callback chan widget.Action
 
 // this is the channel we get requests to make widgets
-var pluginChan chan toolkit.Action
+var pluginChan chan widget.Action
 
 type node struct {
 	parent	*node
 	children []*node
 
 	WidgetId	int	// widget ID
-	WidgetType	toolkit.WidgetType
+	WidgetType	widget.WidgetType
 	ParentId	int	// parent ID
 
 	Name   string
@@ -90,21 +90,21 @@ func (n *node) doUserEvent() {
 		log(logError, "doUserEvent() callback == nil", n.WidgetId)
 		return
 	}
-	var a toolkit.Action
+	var a widget.Action
 	a.WidgetId = n.WidgetId
 	a.Name = n.Name
 	a.Text = n.Text
 	a.S = n.S
 	a.I = n.I
 	a.B = n.B
-	a.ActionType = toolkit.User
+	a.ActionType = widget.User
 	log(logInfo, "doUserEvent() START: send a user event to the callback channel")
 	callback <- a
 	log(logInfo, "doUserEvent() END:   sent a user event to the callback channel")
 	return
 }
 
-func addNode(a *toolkit.Action) *node {
+func addNode(a *widget.Action) *node {
 	n := new(node)
 	n.WidgetType = a.WidgetType
 	n.WidgetId = a.WidgetId
@@ -129,7 +129,7 @@ func addNode(a *toolkit.Action) *node {
 	n.tk = initWidget(n)
 	// n.tk = new(guiWidget)
 
-	if (a.WidgetType == toolkit.Root) {
+	if (a.WidgetType == widget.Root) {
 		log(logInfo, "addNode() Root")
 		return n
 	}
@@ -157,10 +157,10 @@ func addNode(a *toolkit.Action) *node {
 // Linux, MacOS and Windows work (they all work differently. suprise. surprise.)
 //
 // this sets the channel to send user events back from the plugin
-func Callback(guiCallback chan toolkit.Action) {
+func Callback(guiCallback chan widget.Action) {
 	callback = guiCallback
 }
 
-func PluginChannel() chan toolkit.Action {
+func PluginChannel() chan widget.Action {
 	return pluginChan
 }

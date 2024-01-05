@@ -7,7 +7,7 @@ import (
 	"strings"
 	"strconv"
 
-	"go.wit.com/gui/toolkits"
+	"go.wit.com/gui/widget"
 )
 
 func simpleStdin() {
@@ -23,8 +23,8 @@ func simpleStdin() {
 			log(true, "show buttons")
 			me.rootNode.showButtons()
 		case "d":
-			var a toolkit.Action
-			a.ActionType = toolkit.EnableDebug
+			var a widget.Action
+			a.ActionType = widget.EnableDebug
 			callback <- a
 		case "":
 			fmt.Println("")
@@ -45,7 +45,7 @@ func simpleStdin() {
 }
 
 func (n *node) showButtons() {
-	if n.WidgetType == toolkit.Button {
+	if n.WidgetType == widget.Button {
 		n.dumpWidget("Button:")
 	}
 
